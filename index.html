@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 id="city"></h1>
+
+            </div>
+        </div>
+        <div class="row" id="output">
+
+        </div>
+    </div>
+    <script>
+        $.ajax({
+            url: "https://api.openweathermap.org/data/2.5/forecast?q=fontana&mode=json&appid=df5ae6c9c9e7d69f67191beea300511f&units=imperial",
+            type:"get",
+            success:function(data){
+                $("#city").html(data.city.name + " (" + data.city.country + ")");
+                var weatherContent = "";
+                for(i in data.list){
+                  weatherContent +=  "<div class='col-md-4 text-center' ><div class = 'alert alert-primary'>";
+                  weatherContent += data.list[i].dt_txt+"<br/>"
+                  weatherContent += data.list[i].main.temp+"<br/>"
+                  weatherContent += data.list[i].weather[0].main+"<hr>" 
+                  weatherContent +=  "</div></div>";
+                }
+                $("#output").html(weatherContent)
+            }        
+    
+        })
+        
+        
+    </script>
+</body>
+</html>
