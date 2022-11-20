@@ -1,57 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets\css\style.css">
 </head>
+
 <body>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
+    <div class="container-fluid">
+        <div class="row main-bg py-5">
+            <div class="col-md-6 my-5 py-5">
                 <input type="text" class="form-control" placeholder="Enter City Name Here" id="cityname">
             </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary btn-block">Search</button>
+            <div class="col-md-6 my-5 py-5">
+                <button class="btn btn-primary btn-block" onclick="get_weather()">Search</button>
             </div>
+            <div class='row'>
 
+            </div>
             <div class="col-md-12 text-center my-3">
                 <h1 id="city"></h1>
 
             </div>
         </div>
-        <div class="row" id="output">
+        <div class="all-data">
+            <div id="history"><button type="button" class="btn btn-secondary">Secondary</button></div>
+            <div class="row" id="output">
 
+            </div>
         </div>
     </div>
-    <script>
-        $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/forecast?q=fontana&mode=json&appid=df5ae6c9c9e7d69f67191beea300511f&units=imperial",
-            type:"get",
-            success:function(data){
-                $("#city").html(data.city.name + " (" + data.city.country + ")");
-                var weatherContent = "";
-                for(i in data.list){
-                  weatherContent +=  "<div class='col-md-4 text-center' ><div class = 'alert alert-info'>";
-                  weatherContent += data.list[i].dt_txt+"<br/>"
-                  weatherContent += "<img src= 'http://openweathermap.org/img/wn/"+data.list[i].weather[0].icon+"@2x.png'/><br/>"
-                  weatherContent += data.list[i].main.temp+"&deg;F<br/>"
-                  weatherContent += "<strong>"+data.list[i].weather[0].main+"</strong><br/>" 
-                  weatherContent += "<em>("+data.list[i].weather[0].description+")</em><br/>" 
-                  weatherContent +=  "</div></div>";
-                }
-                $("#output").html(weatherContent)
-            }        
-    
-        })
-        
-        
-    </script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
 </body>
+
 </html>

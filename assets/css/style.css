@@ -1,0 +1,27 @@
+.col-md-2 div:hover{
+    box-shadow: 0px 0px 20px gray;
+}
+.main-bg{
+    background-image: url('https://images.pexels.com/photos/531756/pexels-photo-531756.jpeg');
+    background-size: 100% 100%;
+}
+
+.weather-day {
+    flex: 0 0 18.333333%;
+    max-width: 28.333333%;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.all-data {
+    display: flex;
+    flex-direction: row;
+}
+
+#history {
+    width: 36%;
+}
+
+#output {
+    width: 100%
+}
