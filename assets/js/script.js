@@ -6,9 +6,10 @@
 
 function get_weather() {
     var city = $("#cityname").val();
+    get_weather_helper(city)
+}
 
-    save_city(city)
-
+function get_weather_helper(city) {
     $.ajax({
         url: "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&mode=json&appid=df5ae6c9c9e7d69f67191beea300511f&units=imperial",
         type: "get",
@@ -40,14 +41,35 @@ function get_weather() {
                 weatherContent += "</div></div>";
             }
             $("#output").html(weatherContent)
+            save_city(city)
         }
 
     })
-
 }
 
 function save_city(cityName) {
+    var c = localStorage.getItem("weather-" + cityName)
+    if (c != null) {
+        return
+    }
+    localStorage.setItem("weather-" + cityName, JSON.stringify(cityName))
 
+    var html = $("#history").html()
+    html += "<button type='button' class='btn btn-secondary'>" + cityName + "</button>"
+    $("#history").html(html)
 }
 
-get_weather()
+function load_history() {
+    console.log(localStorage)
+    var html = $("#history").html()
+    for (i in localStorage) {
+        if (i.startsWith("weather-")) {
+            var cityName = localStorage.getItem(i).replaceAll("\"", "")
+            html += "<button type='button' class='btn btn-secondary' onclick='get_weather_helper(" + '"' + cityName + '"' + ")'>" + cityName + "</button>"
+        }
+    }
+
+    $("#history").html(html)
+}
+
+load_history()
